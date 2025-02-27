@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    container_name: foodtracker-api
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+    depends_on:
+      - db
+    volumes:
+      - .:/app # Monte ton dossier local dans le conteneur
+    working_dir: /app # Définit le dossier de travail
+    command: air # Utilisation de Air pour recharger automatiquement l'API (voir ci-dessous)
+
+  db:
+    image: postgres:latest
+    container_name: foodtracker-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: marsglace12
+      POSTGRES_DB: foodtracker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
