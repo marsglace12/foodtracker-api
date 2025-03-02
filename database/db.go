@@ -18,7 +18,7 @@ func InitDB() {
 	} else {
 		DB = db
 		log.Default().Println("Connexion à la base de données réussie")
-		DB.AutoMigrate(&models.Food{})
+		DB.AutoMigrate(&models.Food{}, &models.Meal{}, &models.User{})
 	}
 
 }
